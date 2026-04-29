@@ -2,7 +2,6 @@ import { Home, Mic, Trophy, Laptop, Caravan, UserCircle } from "lucide-react";
 import { NavLink } from "react-router-dom";
 
 export const Header: React.FC = () => {
-  const currentPath = "/";
   
   const menuItems = [
     { label: "Beranda", href: "/", icon: <Home size={18} /> },
@@ -28,20 +27,21 @@ export const Header: React.FC = () => {
         <div className="nav flex gap-2">
           {menuItems.map((item) => (
             <NavLink
-            to ={item.href}
-            className={({isActive}) =>
-              `flex items-center gap-2 px-4 py-2 font-medium transition-all duration-200 ${
-              isActive ? activeStyle : defaultStyle}`
-            }
-          >
-            {item.icon && <span className="w-5 h-5">{item.icon}</span>}
-            <span>{item.label}</span>
-          </NavLink>
+              key={item.href} // Menambahkan key agar tidak ada warning di console
+              to={item.href}
+              className={({ isActive }) =>
+                `flex items-center gap-2 px-4 py-2 font-medium transition-all duration-200 ${
+                isActive ? activeStyle : defaultStyle}`
+              }
+            >
+              {item.icon && <span className="w-5 h-5">{item.icon}</span>}
+              <span>{item.label}</span>
+            </NavLink>
           ))}
 
-            <NavLink
-            to ="/login"
-            className={({isActive}) =>
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
               `flex items-center gap-2 px-4 py-2 font-medium transition-all duration-200 ${
               isActive ? activeStyle : defaultStyle}`
             }
@@ -50,7 +50,6 @@ export const Header: React.FC = () => {
               <UserCircle size={18} />
             </span>
           </NavLink>
-
         </div>
       </div>
     </header>
