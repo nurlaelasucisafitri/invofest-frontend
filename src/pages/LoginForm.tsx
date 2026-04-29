@@ -6,6 +6,7 @@ import { useState } from "react";
 import InputText from "../components/ui/InputText"; 
 import InputPassword from "../components/ui/InputPassword";
 import Button from "../components/Button";
+import { Link } from "react-router-dom";
 
 const schema = z.object({
     email: z.string().email("Format email tidak valid").min(1, "Email harus diisi"),
@@ -40,6 +41,7 @@ export default function LoginForm() {
     };
 
     return (
+
         <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
             
             <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-lg border border-gray-100">
@@ -73,6 +75,10 @@ export default function LoginForm() {
                             variant="primary" 
                             isLoading={isLoading} 
                         />
+                    </div>
+
+                    <div>
+                        Belum punya akun? <Link to="/register">Daftar Disini</Link>
                     </div>
                 </form>
             </div>

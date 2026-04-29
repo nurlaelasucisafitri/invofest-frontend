@@ -4,7 +4,7 @@ interface CardProps {
   name: string;
   description: string;
   price: number;
-  className?: string; // Optional className prop
+  className?: string;
 }
 
 const Card: React.FC<CardProps> = ({ name, description, price, className }) => {

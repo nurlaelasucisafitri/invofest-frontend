@@ -1,12 +1,34 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Competition from "./pages/Competition";
+import Homepage from "./pages/Homepage";
 import LoginForm from "./pages/LoginForm";
+import Seminar from "./pages/Seminar";
+import Workshop from "./pages/Workshop";
+import Talkshow from "./pages/Talkshow";
+import MainLayout from "./layouts/MainLayout";
+import AuthLayout from "./layouts/AuthLayout";
 import RegisterForm from "./pages/RegisterForm";
 
 function App() {
   return (
-    <div className="grid grid-cols-2 w-full container mx-auto gap-4">
-      <LoginForm />
-      <RegisterForm/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        {/* untuk website */}
+        <Route element={<MainLayout />}>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/competition" element={<Competition />} />
+        <Route path="/seminar" element={<Seminar />} />
+        <Route path="/talkshow" element={<Talkshow />} />
+        <Route path="/workshop" element={<Workshop />} />
+        </Route>
+
+        {/* untuk login dan register */}
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<LoginForm />} />
+          <Route path="/register" element={<RegisterForm />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
