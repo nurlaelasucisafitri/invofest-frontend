@@ -6,7 +6,9 @@ import { useState } from "react";
 import InputText from "../components/ui/InputText"; 
 import InputPassword from "../components/ui/InputPassword";
 import Button from "../components/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { useAuthStore } from "../store/useAuthStore";
 
 const schema = z.object({
     email: z.string().email("Format email tidak valid").min(1, "Email harus diisi"),
@@ -16,6 +18,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function LoginForm() {
+    const Navigate = useNavigate();
+    const login = useAuthStore((state) => state.login);
     const [isLoading, setIsLoading] = useState(false);
 
     const { 
@@ -30,6 +34,15 @@ export default function LoginForm() {
         setIsLoading(true);
         try {
             console.log("Data Login:", data);
+            if (data.email == "nurlaelasucisafitri@gmail.com" && data.password == "admin123") {
+                alert ("login berhasil")
+
+                login(data.email)
+            
+            Navigate("/dashboard");
+        } else {
+            alert("email atau password anda salah!");
+        }
 
             await new Promise((resolve) => setTimeout(resolve, 2000));
             alert("Login Berhasil!");

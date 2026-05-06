@@ -8,24 +8,54 @@ import Talkshow from "./pages/Talkshow";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import RegisterForm from "./pages/RegisterForm";
+import DashboardIndex from "./pages/dashboard/DashboardIndex";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import DashboardLayout from "./layouts/DashboardLayout";
+
+// Import halaman-halaman baru
+import CategoryIndex from "./pages/dashboard/category/CategoryIndex";
+import CategoryCreate from "./pages/dashboard/category/CategoryCreate";
+import EventIndex from "./pages/dashboard/event/EventIndex";
+import EventCreate from "./pages/dashboard/event/EventCreate";
+import PembicaraIndex from "./pages/dashboard/pembicara/PembicaraIndex";
+import PembicaraCreate from "./pages/dashboard/pembicara/PembicaraCreate";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* untuk website */}
+        {/* rute website publik */}
         <Route element={<MainLayout />}>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/competition" element={<Competition />} />
-        <Route path="/seminar" element={<Seminar />} />
-        <Route path="/talkshow" element={<Talkshow />} />
-        <Route path="/workshop" element={<Workshop />} />
+          <Route path="/" element={<Homepage />} />
+          <Route path="/competition" element={<Competition />} />
+          <Route path="/seminar" element={<Seminar />} />
+          <Route path="/talkshow" element={<Talkshow />} />
+          <Route path="/workshop" element={<Workshop />} />
         </Route>
 
-        {/* untuk login dan register */}
+        {/* rute login dan register */}
         <Route element={<AuthLayout />}>
           <Route path="/login" element={<LoginForm />} />
           <Route path="/register" element={<RegisterForm />} />
+        </Route>
+
+        {/* rute dashboard (hanya bisa diakses jika sudah login) */}
+        <Route element={<ProtectedRoute />}>
+          <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<DashboardIndex />} />
+            
+            {/* Rute Category */}
+            <Route path="/dashboard/category" element={<CategoryIndex />} />
+            <Route path="/dashboard/category/create" element={<CategoryCreate />} />
+
+            {/* Rute Event */}
+            <Route path="/dashboard/event" element={<EventIndex />} />
+            <Route path="/dashboard/event/create" element={<EventCreate />} />
+
+            {/* Rute Pembicara */}
+            <Route path="/dashboard/pembicara" element={<PembicaraIndex />} />
+            <Route path="/dashboard/pembicara/create" element={<PembicaraCreate />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
