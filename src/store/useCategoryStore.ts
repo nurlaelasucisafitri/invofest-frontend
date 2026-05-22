@@ -1,33 +1,74 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { api } from "../lib/api";
 
-interface Category {
+export interface Category {
   id: number;
-  nama: string;
+  name: string;
+  createdAt: string;
 }
 
 interface CategoryState {
   categories: Category[];
-  addCategory: (nama: string) => void;
-  deleteCategory: (id: number) => void;
+  loading: boolean;
+  error: string | null;
+  fetchCategories: () => Promise<void>;
+  addCategory: (name: string) => Promise<void>;
+  updateCategory: (id: number, name: string) => Promise<void>;
+  deleteCategory: (id: number) => Promise<void>;
 }
 
-export const useCategoryStore = create<CategoryState>()(
-  persist(
-    (set) => ({
-      categories: [
-        { id: 1, nama: "Seminar" },
-        { id: 2, nama: "Competition" },
-      ],
-      addCategory: (nama) =>
-        set((state) => ({
-          categories: [...state.categories, { id: Date.now(), nama }],
-        })),
-      deleteCategory: (id) =>
-        set((state) => ({
-          categories: state.categories.filter((cat) => cat.id !== id),
-        })),
-    }),
-    { name: "category-storage" }
-  )
-);
+export const useCategoryStore = create<CategoryState>((set) => ({
+  categories: [],
+  loading: false,
+  error: null,
+
+  fetchCategories: async () => {
+    set({ loading: true, error: null });
+    try {
+      const data = await api.get("/categories");
+      set({ categories: data });
+    } catch (e: any) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  addCategory: async (name) => {
+    set({ loading: true, error: null });
+    try {
+      await api.post("/categories", { name });
+      const data = await api.get("/categories");
+      set({ categories: data });
+    } catch (e: any) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  updateCategory: async (id, name) => {
+    set({ loading: true, error: null });
+    try {
+      await api.put(`/categories/${id}`, { name });
+      const data = await api.get("/categories");
+      set({ categories: data });
+    } catch (e: any) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  deleteCategory: async (id) => {
+    set({ loading: true, error: null });
+    try {
+      await api.delete(`/categories/${id}`);
+      set((state) => ({ categories: state.categories.filter((c) => c.id !== id) }));
+    } catch (e: any) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+}));

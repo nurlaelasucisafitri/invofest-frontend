@@ -11,6 +11,7 @@ import RegisterForm from "./pages/RegisterForm";
 import DashboardIndex from "./pages/dashboard/DashboardIndex";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
+import BiodataIndex from "./pages/dashboard/biodata/BiodataIndex";
 
 // Import halaman-halaman baru
 import CategoryIndex from "./pages/dashboard/category/CategoryIndex";
@@ -55,6 +56,8 @@ function App() {
             {/* Rute Pembicara */}
             <Route path="/dashboard/pembicara" element={<PembicaraIndex />} />
             <Route path="/dashboard/pembicara/create" element={<PembicaraCreate />} />
+
+            <Route path="/dashboard/biodata" element={<BiodataIndex />} />
           </Route>
         </Route>
       </Routes>

@@ -1,34 +1,76 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { api } from "../lib/api";
 
-interface Speaker {
+export interface Pembicara {
   id: number;
-  nama: string;
+  name: string;
   role: string;
-  foto: string;
+  image: string;
+  createdAt: string;
 }
 
-interface SpeakerState {
-  speakers: Speaker[];
-  addSpeaker: (speaker: Omit<Speaker, "id">) => void;
-  deleteSpeaker: (id: number) => void;
+interface PembicaraState {
+  speakers: Pembicara[];
+  loading: boolean;
+  error: string | null;
+  fetchPembicara: () => Promise<void>;
+  addSpeaker: (speaker: { name: string; role: string; image: string }) => Promise<void>;
+  updateSpeaker: (id: number, speaker: { name: string; role: string; image: string }) => Promise<void>;
+  deleteSpeaker: (id: number) => Promise<void>;
 }
 
-export const usePembicaraStore = create<SpeakerState>()(
-  persist(
-    (set) => ({
-      speakers: [
-        { id: 1, nama: "Dr. Eng. Ahmad", role: "AI Specialist", foto: "" },
-      ],
-      addSpeaker: (newSpeaker) =>
-        set((state) => ({
-          speakers: [...state.speakers, { id: Date.now(), ...newSpeaker }],
-        })),
-      deleteSpeaker: (id) =>
-        set((state) => ({
-          speakers: state.speakers.filter((s) => s.id !== id),
-        })),
-    }),
-    { name: "speaker-storage" }
-  )
-);
+export const usePembicaraStore = create<PembicaraState>((set) => ({
+  speakers: [],
+  loading: false,
+  error: null,
+
+  fetchPembicara: async () => {
+    set({ loading: true, error: null });
+    try {
+      const data = await api.get("/pembicara");
+      set({ speakers: data });
+    } catch (e: any) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  addSpeaker: async (speaker) => {
+    set({ loading: true, error: null });
+    try {
+      await api.post("/pembicara", speaker);
+      const data = await api.get("/pembicara");
+      set({ speakers: data });
+    } catch (e: any) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  updateSpeaker: async (id, speaker) => {
+    set({ loading: true, error: null });
+    try {
+      await api.put(`/pembicara/${id}`, speaker);
+      const data = await api.get("/pembicara");
+      set({ speakers: data });
+    } catch (e: any) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  deleteSpeaker: async (id) => {
+    set({ loading: true, error: null });
+    try {
+      await api.delete(`/pembicara/${id}`);
+      set((state) => ({ speakers: state.speakers.filter((s) => s.id !== id) }));
+    } catch (e: any) {
+      set({ error: e.message });
+    } finally {
+      set({ loading: false });
+    }
+  },
+}));
