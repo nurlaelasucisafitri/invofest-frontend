@@ -1,73 +1,45 @@
-# React + TypeScript + Vite
+# Invofest Event Management System — UAS Pemweb 2
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Project ini dibuat untuk memenuhi tugas Ujian Akhir Semester Genap Tahun Akademik 2025/2026 pada mata kuliah Pemrograman Web 2.
 
-Currently, two official plugins are available:
+## Identitas Mahasiswa
+* **Nama:** Nur Laela Suci Safitri
+* **NIM:** 24090097
+* **Kelas:** 4C
+* **Prodi/Semester:** D4 Teknik Informatika / 4
+* **Dosen Pengampu:** Jamal Apriadi, S.Kom.
+* **Kampus:** Universitas Harkat Negeri
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Tautan Penting (Links)
+* **Live Demo (Vercel):** https://invofest-frontend.vercel.app/
+* **Video Demo & Penjelasan Code (YouTube):** https://youtu.be/73p8J6PzfRs
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Spesifikasi & Teknologi Project
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Sesuai dengan ketentuan standar dari dosen pengampu:
+* **Frontend:** React (TypeScript) & Zustand State Management
+* **Backend:** Express (TypeScript)
+* **ORM:** Prisma ORM (PostgreSQL via Supabase)
+* **Deployment:** Vercel & GitHub
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Fitur yang Diimplementasikan
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Database & Schema:** Implementasi 3 tabel relasional yaitu `Category Event`, `Pembicara`, dan `Event` (menggunakan *Foreign Key*).
+2. **Backend API:** Endpoint CRUD lengkap (GET, POST, PUT, DELETE) untuk ketiga entitas tersebut.
+3. **Autentikasi Zustand:** Login manual menggunakan **NIM** dan **Password**. Sesi login tersimpan secara global.
+4. **Protected Routes:** Membatasi akses halaman manajemen data di dashboard sebelum user melakukan login.
+5. **UI & CRUD Konten:** Fitur list data, form tambah, edit, dan hapus untuk ketiga modul.
+6. **Dropdown Dinamis:** Input Event mengambil pilihan data Kategori dan Pembicara secara dinamis langsung dari database.
+7. **Menu Biodata:** Halaman khusus yang memuat informasi data diri mahasiswa pembuat website.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Akun Uji Coba (Demo Login)
+* **NIM:** `24090097`
+* **Password:** `admin123`
