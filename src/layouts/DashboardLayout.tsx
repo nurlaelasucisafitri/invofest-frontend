@@ -39,6 +39,7 @@ export default function DashboardLayout() {
               { to: "/dashboard/pembicara", label: "Pembicara" },
               { to: "/dashboard/event", label: "Event" },
               { to: "/dashboard/biodata", label: "Biodata" },
+              { to: "/dashboard/user", label: "User" },
             ].map((m) => (
               <li key={m.to}>
                 <Link to={m.to} className={menuClass(m.to)}>{m.label}</Link>
