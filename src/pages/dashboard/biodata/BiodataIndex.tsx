@@ -7,10 +7,10 @@ export default function BiodataIndex() {
         {/* Header */}
         <div className="bg-[#801B30] p-6 flex flex-col items-center text-white">
           <img
-            src="https://res-console.cloudinary.com/douxlprdx/thumbnails/transform/v1/image/upload/Y19maWxsLGhfMjAwLHdfMjAw/v1/c2F5YV9kcHgzenc=/template_primary"
-            alt="Nur Laela Suci Safitri"
-            className="w-24 h-24 rounded-full border-4 border-white object-cover mb-3"
-            />
+          src="https://res.cloudinary.com/douxlprdx/image/upload/v1779446672/saya_dpx3zw.jpg"
+          alt="Nur Laela Suci Safitri"
+          className="w-24 h-24 rounded-full border-4 border-white object-cover mb-3"
+/>
           <h2 className="text-xl font-bold">Nur Laela Suci Safitri</h2>
           <p className="text-pink-200 text-sm mt-1">Teknik Informatika 4C</p>
         </div>
